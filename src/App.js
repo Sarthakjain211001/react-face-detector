@@ -1,65 +1,60 @@
 import './App.css';
-import React, {useRef, useEffect} from 'react'
-import * as faceapi from 'face-api.js'
+import React, {useState, useRef, useEffect} from 'react'
+import Navbar from './components/Navbar';
+import NewPost from './components/NewPost';
 
 const App = () => {
 
-  const imgRef = useRef();    //useRef() is same as document.getElementByID("")
-  const canvasRef = useRef();
+  const [file, setfile] = useState(null);
+  const [image, setimage] = useState(null);
 
-  const handleImage = async ()=>{
-     const detections = await faceapi 
-     .detectAllFaces(imgRef.current, new faceapi.TinyFaceDetectorOptions())
-     .withFaceLandmarks()
-     .withFaceExpressions();
-    //  .withAgeAndGender();
+  useEffect(() => {
+    const getImage = ()=>{
+       const img = new Image();
+       img.src = URL.createObjectURL(file);       
+       img.onload = ()=> {setimage({
+         url: img.src,
+         width: img.width,
+         height: img.height
+       })}
 
-    //  console.log(detections)
-
-    canvasRef.current.innerHTML = faceapi.createCanvasFromMedia(imgRef.current);
-    faceapi.matchDimensions(canvasRef.current, {
-      width: 940,
-      height: 650,
-    });
-
-    const resized = faceapi.resizeResults(detections, {
-      width: 940,
-      height: 650,
-    })
-    faceapi.draw.drawDetections(canvasRef.current, resized)         //For drawing boxes on the image
-    faceapi.draw.drawFaceExpressions(canvasRef.current, resized)    //For writing the expressions on the image
-    faceapi.draw.drawFaceLandmarks(canvasRef.current, resized)      //For drawing the dotted outline on the image
-  }
-
-  useEffect(()=>{
-    const loadModels = ()=>{
-      Promise.all([
-        faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
-        faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
-        // faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
-        faceapi.nets.faceExpressionNet.loadFromUri("/models"),
-      ])
-      .then(handleImage)
-      .catch((err)=> console.log(err));
+      //  console.log(image)
     };
-
-    imgRef.current && loadModels()
-  } , [])
+    file && getImage();
+  }, [file]) 
 
   return (
-    <div className='App'>
-    <img  
-    crossOrigin='anonymous'
-    ref = {imgRef}
-    style={{"objectFit": "cover"}}
-    src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvULB4tfyXgIpY7BVOw0AnIykmXPLzlkLzsg&usqp=CAU' 
-    // src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg3ClUuZgxAzmezqlM6f4NZB7rmn3JL9uu5w&usqp=CAU'
-    // src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHpkdSWbQqFKeCU4JarGMjFtRPaci6saRQ7g&usqp=CAU'
-    alt="" 
-    width="940" 
-    height = "650" 
-    />
-    <canvas ref = {canvasRef} width="940" height="650"/>
+    <div> 
+    <Navbar/>
+    {image ? <NewPost image={image}/> : ( 
+      <div className='newPostCard'>
+        <div className='addPost'>
+          <img 
+           src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSye8_F5ZHKn2FQ51IdAmOKH3VaIfKkZLXVEA&usqp=CAU'
+           alt=""
+           className='avatar'
+           />
+           <div className="postForm">
+             <input 
+             type="text"
+             placeholder="Upload an image to detect the faces."  
+             className='postInput'
+             />
+             
+             <label htmlFor='file'>
+               <img 
+               className='addImg'
+               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPC9VxLvdzYUvCTuNMr3VM-qWt-_sR1Wxm9azXUYom9nOokLnv-Bw_Ik8v5nCTUTB1W5U&usqp=CAU"/>
+             <button className='sendBtn'>Send</button>
+             </label>
+             <input
+              onChange={e => setfile(e.target.files[0])}
+              id="file" 
+              style={{"display":"none"}} 
+              type="file"/>
+           </div>
+        </div>
+      </div> )}
     </div>
   )
 }

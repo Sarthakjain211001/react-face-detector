@@ -1,18 +1,16 @@
 import React from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Navbar = ({setimage, setfile}) => {
 
-    const navigate = useNavigate()
     const fun=()=>{
         setimage(null);
         setfile(null);
-      navigate("/")
     }
 
     return (
         <div className='navbar'>
-            <span onClick={fun} >FaceDetector</span>
+            <span onClick={fun} ><Link className="linkClass" to="/">FaceDetector</Link></span>
         </div>
     )
 }

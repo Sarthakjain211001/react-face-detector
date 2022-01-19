@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import Navbar from './Navbar'
 import * as faceapi from 'face-api.js'
 
-const NewPostVideo = () => {
+const NewPostVideo = ({setimage,setfile}) => {
 
     const videoRef = useRef(null);
     const canvasRef = useRef(null); 
@@ -46,10 +46,9 @@ const NewPostVideo = () => {
 //    })
 
 const playFun=()=>{
-    console.log("first");
     const Video = document.getElementById("video");
     
-    
+  if(Video){  
     canvasRef.current.innerHTML = faceapi.createCanvasFromMedia(Video);
 
     faceapi.matchDimensions(canvasRef.current, {width: Video.width, height: Video.height})
@@ -59,6 +58,7 @@ const playFun=()=>{
         // console.log(detections);
         // console.log("hi");
 
+        
         faceapi.matchDimensions(canvasRef.current, {
             width: Video.width,
             height: Video.height
@@ -68,18 +68,20 @@ const playFun=()=>{
             width: Video.width,
             height: Video.height
           })
+        
           canvasRef.current.getContext('2d').clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
           faceapi.draw.drawDetections(canvasRef.current, resizedDetections)         //For drawing boxes on the image
           faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections)    //For writing the expressions on the image
           faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections)      //For drawing the dotted outline on the image
         
     },100)
+}
 }    
 
 
     return (
         <div>
-            <Navbar/>
+            <Navbar setimage={setimage} setfile={setfile}/>
             <div className='videoDiv'>
             <video ref={videoRef} onPlay={e=> playFun()} id="video" width="720" height="560" autoPlay muted></video>
             <canvas ref={canvasRef} ></canvas>

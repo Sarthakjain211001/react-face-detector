@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 
-const PostForm = ({file, image, setfile,setimage}) => {
+const PostForm = ({file, setfile,setimage}) => {
  
     const navigate = useNavigate()
     
@@ -26,7 +26,7 @@ const PostForm = ({file, image, setfile,setimage}) => {
 
   return (
       <>
-      <Navbar/>
+      <Navbar setimage={setimage} setfile={setfile}/>
  <div className='newPostCard'>
         
         <div className="postForm">

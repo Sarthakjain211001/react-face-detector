@@ -141,6 +141,11 @@ label {
   margin: 20px;
 }
 
+.linkClass{
+  color: white;
+  text-decoration: none;
+}
+
 @media screen and (max-width: 480px){
   .postForm{
     flex-direction: column;

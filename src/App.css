@@ -4,6 +4,8 @@
 
 canvas {
   position: absolute;
+  /* border: 2px soloid black; */
+  /* background-color: blue; */
 }
 
 .navbar {
@@ -17,76 +19,84 @@ canvas {
   font-size: 20px;
 }
 
+.navbar > span{
+  cursor: pointer;
+}
+
 .newPostCard {
-  height: 100vh;
+  height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.addPost {
-  display: flex;
+  /* border: 2px solid red; */
+  /* overflow: hidden; */
 }
 
 label {
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
-}
-
-.addImg {
-  width: 25px;
+  justify-content: center;
+  flex-direction: column;
   cursor: pointer;
-  margin-right: 10px;
+}
+.uploadtxt{
+  font-size: 20px;
+  font-weight: bold;
+}
+.addImg {
+  width: 100px;
 }
 
 .sendBtn{
-  width: 100%;
+  margin: 30px;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: black;
+  background-color: rgb(206, 214, 240);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-direction: column;
 }
 
 .postForm {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  /* border: 2px solid red; */
 }
 
-.avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-right: 20px;
-}
-
-button {
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: white;
-  background-color: teal;
-  cursor: pointer;
-}
-
-.postInput {
-  height: 30px;
-  border: none;
-  margin-bottom: 10px;
-  /* text-overflow: wrap; */
-  width: 215px;
-}
 
 .container {
   height: calc(100vh - 50px);
   display: flex;
   align-items: center;
   justify-content: space-around;
+  margin-top: 10px;
+  
+  /* border: 2px solid red; */
+  /* position: relative; */
+
 }
 
-.left {
+ .left {
   display: flex;
   align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
+  justify-content: center; 
+  position: relative; 
+  /* border: 10px solid black; */
+  /* background: blue; */
+ } 
+ /* .imgCanvas{ */
+/* object-fit: cover; */
+/* object-fit: contain; */
+/* position: absolute; */
+/* margin-top: 800px; */
+ /* } */
 .right {
   display: flex;
   flex-direction: column;
@@ -119,4 +129,20 @@ button {
 
 .name {
   font-weight: bold;
+}
+
+/* #video{
+  */
+/* } */
+.videoDiv{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
+
+@media screen and (max-width: 480px){
+  .postForm{
+    flex-direction: column;
+  }
 }

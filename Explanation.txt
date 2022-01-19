@@ -1,0 +1,15 @@
+We are using face-api.js .
+https://github.com/justadudewhohacks/face-api.js/
+
+JavaScript face recognition API for the browser and nodejs implemented on top of tensorflow.js core
+
+npm i face-api.js
+
+Paste the weights folder from the above repo in our project as models folder in public folder.
+
+We will put the canvas on the image or video. 
+The drawings/text made by face-api will be made on this canvas.
+
+
+For real time i.e video from webcam we will get the video using the <video> tag. And we will put the canvas
+on the video element to draw the text and outlines by face-api.js

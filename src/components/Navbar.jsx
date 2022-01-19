@@ -1,9 +1,18 @@
 import React from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({setimage, setfile}) => {
+
+    const navigate = useNavigate()
+    const fun=()=>{
+        setimage(null);
+        setfile(null);
+      navigate("/")
+    }
+
     return (
         <div className='navbar'>
-            <span>FaceDetector</span>
+            <span onClick={fun} >FaceDetector</span>
         </div>
     )
 }
